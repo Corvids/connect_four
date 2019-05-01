@@ -1,15 +1,17 @@
 use std::net::TcpListener;
 
 fn main() {
-    establish_connection();
+    new_game();
 }
 
 fn establish_connection() {
-    let listener = TcpListener::bind("127.0.0.1:4000").unwrap();
+    println!("Starting a new game!");
+}
 
-    for stream in listener.incoming() {
-        let _stream = stream.unwrap();
+fn print_board() {
+    
+}
 
-        println!("Connection established at 127.0.0.1:4000");
-    }
+fn update_board() {
+    
 }
