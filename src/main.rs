@@ -1,10 +1,14 @@
-use std::net::TcpListener;
+use std::io;
 
 fn main() {
-    new_game();
+    welcome_message();
+
+    let mut board = [[0u8; 6]; 7];
+
+    
 }
 
-fn establish_connection() {
+fn welcome_message() {
     println!("Starting a new game!");
 }
 
@@ -15,3 +19,4 @@ fn print_board() {
 fn update_board() {
     
 }
+

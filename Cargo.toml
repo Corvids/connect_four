@@ -1,5 +1,5 @@
 [package]
-name = "db_server"
+name = "connect_four"
 version = "0.1.0"
 authors = ["corvids <joonnifer@gmail.com>"]
 edition = "2018"
