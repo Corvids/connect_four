@@ -24,12 +24,23 @@ fn assign_players() -> (String, String) {
             .ok()
             .expect("Failed to read line");
 
+            
         if check_color_input(&player_choice) == false {
             println!("Please enter 'red' or 'yellow' >:(");
         } else {
-            println!("Player has successfully chosen a color; implemenet pls");
-            return ("".to_string(), "".to_string());
+            return assign_colors(player_choice);
         }
+    }
+}
+
+fn assign_colors(player_color: String) -> (String, String) {
+    if player_color.trim().to_lowercase() == "yellow" {
+        println!("Player will be yellow. Computer will be red.");
+        return ("yellow".to_string(), "red".to_string());
+    }
+    else {
+        println!("Player will be red. Computer will be yellow.");
+        return ("red".to_string(), "yellow".to_string());
     }
 }
 
@@ -45,12 +56,16 @@ fn print_board() {
     
 }
 
-fn update_board() {
+fn update_board() -> () {
     
 }
 
 fn check_if_winner() -> bool {
     return false;
+}
+
+fn winning_message() {
+    println!("Congrats! The winner is ");
 }
 
 fn check_playable() -> bool {
