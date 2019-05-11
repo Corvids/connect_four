@@ -6,6 +6,9 @@ fn main() {
     let mut board = [[0u8; 6]; 7];
 
     assign_players();
+    
+    // print board 
+    print_board();
 }
 
 fn welcome_message() {
@@ -24,12 +27,12 @@ fn assign_players() -> (String, String) {
             .ok()
             .expect("Failed to read line");
 
-            
         if check_color_input(&player_choice) == false {
             println!("Please enter 'red' or 'yellow' >:(");
         } else {
             return assign_colors(player_choice);
         }
+        
     }
 }
 
@@ -53,7 +56,11 @@ fn check_color_input(choice: &str) -> bool {
 }
 
 fn print_board() {
-    
+    for x in 0..6 {
+        for y in 0..7 {
+            println!("-"*x);
+        }
+    }
 }
 
 fn update_board() -> () {
