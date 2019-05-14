@@ -65,9 +65,13 @@ fn check_color_input(choice: &str) -> bool {
 }
 
 fn print_board() {
-    for _y in 0..7 {
-        print!("|\t");
+    for _x in 0..6 {
+        for _y in 0..6 {
+            print!("| * ");
+        }
+        println!("|");
     }
+    println!();
 }
 
 fn update_board() -> () {
