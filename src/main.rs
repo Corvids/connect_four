@@ -3,12 +3,21 @@ use std::io;
 fn main() {
     welcome_message();
 
-    let mut board = [[0u8; 6]; 7];
+    let mut _board = [[0u8; 6]; 7];
 
     assign_players();
-    
-    // print board 
-    print_board();
+
+    loop {
+        // print board
+        print_board();
+
+        let winner_exists = check_if_winner();
+
+        if winner_exists {
+            winning_message();
+            break;
+        }
+    }
 }
 
 fn welcome_message() {
@@ -22,7 +31,7 @@ fn assign_players() -> (String, String) {
         let mut player_choice = String::new();
 
         println!("Choose a color - red/yellow: ");
-        
+
         io::stdin().read_line(&mut player_choice)
             .ok()
             .expect("Failed to read line");
@@ -32,7 +41,7 @@ fn assign_players() -> (String, String) {
         } else {
             return assign_colors(player_choice);
         }
-        
+
     }
 }
 
@@ -56,19 +65,17 @@ fn check_color_input(choice: &str) -> bool {
 }
 
 fn print_board() {
-    for x in 0..6 {
-        for y in 0..7 {
-            println!("-"*x);
-        }
+    for _y in 0..7 {
+        print!("|\t");
     }
 }
 
 fn update_board() -> () {
-    
+    return;
 }
 
 fn check_if_winner() -> bool {
-    return false;
+    return true;
 }
 
 fn winning_message() {
