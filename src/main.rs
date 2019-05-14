@@ -3,15 +3,20 @@ use std::io;
 fn main() {
     welcome_message();
 
-    let mut _board = [[0u8; 6]; 7];
+    const N: usize = 6;
+    const M: usize = 7;
+
+    let mut _board = [[0 as char; N] ; M];
 
     assign_players();
 
     loop {
-        // print board
-        print_board();
-
         let winner_exists = check_if_winner();
+
+        _board = update_board(0, 0, 'X', _board);
+
+        // print board
+        print_board(_board);
 
         if winner_exists {
             winning_message();
@@ -64,18 +69,19 @@ fn check_color_input(choice: &str) -> bool {
     }
 }
 
-fn print_board() {
+fn print_board( _board: [[char;6];7] ) -> () {
     for _x in 0..6 {
         for _y in 0..6 {
-            print!("| * ");
+            print!("| {} ", _board[_x][_y]);
         }
         println!("|");
     }
     println!();
 }
 
-fn update_board() -> () {
-    return;
+fn update_board(x: usize, y: usize, c: char, mut _board: [[char;6];7]) -> [[char;6];7] {
+    _board[x][y] = c;
+    return _board;
 }
 
 fn check_if_winner() -> bool {
