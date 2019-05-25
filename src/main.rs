@@ -13,7 +13,36 @@ fn main() {
     loop {
         let winner_exists = check_if_winner();
 
-        _board = update_board(0, 0, 'X', _board);
+        /*
+        For now, X will be "red"
+        O will be "yellow"
+        */
+        loop {
+            let mut x = String::new();
+            let mut y = String::new();
+
+            // ask for input -- x
+            println!("Choose an X position: ");
+            io::stdin().read_line(&mut x)
+                .ok()
+                .expect("Failed to read line");
+            let x: usize = x.trim().parse()
+                .expect("Please type a number!");
+
+            // ask for input -- y
+            println!("Choose an Y position: ");
+            io::stdin().read_line(&mut y)
+                .ok()
+                .expect("Failed to read line");
+            let y: usize = y.trim().parse()
+                .expect("Please type a number!");
+
+            // check if position is valid
+            if is_playable(x, y, _board) {
+                _board = update_board(x, y, 'X', _board);
+                break;
+            }
+        }
 
         // print board
         print_board(_board);
@@ -79,6 +108,11 @@ fn print_board( _board: [[char;6];7] ) -> () {
     println!();
 }
 
+
+fn is_playable(x: usize, y: usize, mut _board: [[char;6];7]) -> bool {
+    return _board[x][y].to_string() != "X" && _board[x][y].to_string() != "O";
+}
+
 fn update_board(x: usize, y: usize, c: char, mut _board: [[char;6];7]) -> [[char;6];7] {
     _board[x][y] = c;
     return _board;
@@ -92,6 +126,3 @@ fn winning_message() {
     println!("Congrats! The winner is ");
 }
 
-fn check_playable() -> bool {
-    return true;
-}
