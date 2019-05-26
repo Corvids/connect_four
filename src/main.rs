@@ -11,35 +11,26 @@ fn main() {
     assign_players();
 
     loop {
-        let winner_exists = check_if_winner();
-
         /*
         For now, X will be "red"
         O will be "yellow"
         */
         loop {
-            let mut x = String::new();
-            let mut y = String::new();
+            let mut row_input = String::new();
 
             // ask for input -- x
-            println!("Choose an X position: ");
-            io::stdin().read_line(&mut x)
+            println!("Choose an row (1-6): ");
+            io::stdin().read_line(&mut row_input)
                 .ok()
                 .expect("Failed to read line");
-            let x: usize = x.trim().parse()
+            let row_input: usize = row_input.trim().parse()
                 .expect("Please type a number!");
 
-            // ask for input -- y
-            println!("Choose an Y position: ");
-            io::stdin().read_line(&mut y)
-                .ok()
-                .expect("Failed to read line");
-            let y: usize = y.trim().parse()
-                .expect("Please type a number!");
+            let row = row_input - 1;
 
             // check if position is valid
-            if is_playable(x, y, _board) {
-                _board = update_board(x, y, 'X', _board);
+            if is_playable(row, _board) {
+                _board = update_board(row, 'X', _board);
                 break;
             }
         }
@@ -47,8 +38,9 @@ fn main() {
         // print board
         print_board(_board);
 
-        if winner_exists {
-            winning_message();
+        // check if winner exists
+        if winner_exists() {
+            winning_message("No one :(");
             break;
         }
     }
@@ -108,21 +100,38 @@ fn print_board( _board: [[char;6];7] ) -> () {
     println!();
 }
 
+fn last_empty_space(row: usize, mut _board: [[char;6];7]) -> usize {
+    let mut current_space = 0;
+    loop {
+        if _board[current_space][row].to_string() != "X" && _board[current_space][row].to_string() != "O" {
+            break;
+        } else if current_space == 0 {
 
-fn is_playable(x: usize, y: usize, mut _board: [[char;6];7]) -> bool {
+        } else {
+            current_space -= 1;
+        }
+    }
+    return current_space;
+}
+
+fn is_playable(row: usize, mut _board: [[char;6];7]) -> bool {
+    let x = last_empty_space(row, _board);
+    let y = row;
     return _board[x][y].to_string() != "X" && _board[x][y].to_string() != "O";
 }
 
-fn update_board(x: usize, y: usize, c: char, mut _board: [[char;6];7]) -> [[char;6];7] {
+fn update_board(row: usize, c: char, mut _board: [[char;6];7]) -> [[char;6];7] {
+    let x = last_empty_space(row, _board);
+    let y = row;
     _board[x][y] = c;
     return _board;
 }
 
-fn check_if_winner() -> bool {
-    return true;
+fn winner_exists() -> bool {
+    return false;
 }
 
-fn winning_message() {
-    println!("Congrats! The winner is ");
+fn winning_message(winner_name: &str) {
+    println!("Congrats! The winner is {}", winner_name);
 }
 
