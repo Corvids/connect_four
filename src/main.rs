@@ -8,7 +8,11 @@ fn main() {
 
     let mut _board = [[0 as char; N] ; M];
 
+    println!("Welcome to");
+    println!("⁣⚪⚪⚪⚪⚪⚪⚪\n⚪⚪⚪⚪⚪⚪⚪\n⚪⚪⚪⚪⚪⚪⚪\n⚪⚪🔵🔴⚪⚪⚪\n\n");
+
     assign_players();
+    println!("\n");
 
     loop {
         /*
@@ -17,6 +21,9 @@ fn main() {
         */
         loop {
             let mut row_input = String::new();
+
+            // print board
+            print_board(_board);
 
             // ask for input -- x
             println!("Choose an row (1-6): ");
@@ -35,9 +42,6 @@ fn main() {
             }
         }
 
-        // print board
-        print_board(_board);
-
         // check if winner exists
         if winner_exists() {
             winning_message("No one :(");
@@ -47,7 +51,7 @@ fn main() {
 }
 
 fn welcome_message() {
-    println!("Starting a new game!");
+    println!("Starting a new game!\n");
 }
 
 // assign player to a color;
