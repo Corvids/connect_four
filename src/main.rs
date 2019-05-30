@@ -1,6 +1,10 @@
 use std::io;
 
 fn main() {
+    let connect_four_ascii = r###"   ___                      _     ___
+  / __|___ _ _  _ _  ___ __| |_  | __|__ _  _ _ _
+ | (__/ _ \ ' \| ' \/ -_) _|  _| | _/ _ \ || | '_|
+  \___\___/_||_|_||_\___\__|\__| |_|\___/\_,_|_|"###;
     welcome_message();
 
     const N: usize = 6;
@@ -9,16 +13,20 @@ fn main() {
     let mut _board = [[0 as char; N] ; M];
 
     println!("Welcome to");
-    println!("⁣⚪⚪⚪⚪⚪⚪⚪\n⚪⚪⚪⚪⚪⚪⚪\n⚪⚪⚪⚪⚪⚪⚪\n⚪⚪🔵🔴⚪⚪⚪\n\n");
+    println!("{}", connect_four_ascii);
+    println!("\n");
 
     assign_players();
     println!("\n");
+
+    let mut current_player = 'X';
 
     loop {
         /*
         For now, X will be "red"
         O will be "yellow"
         */
+
         loop {
             let mut row_input = String::new();
 
@@ -37,9 +45,17 @@ fn main() {
 
             // check if position is valid
             if is_playable(row, _board) {
-                _board = update_board(row, 'X', _board);
+                _board = update_board(row, current_player, _board);
                 break;
             }
+
+        }
+
+        // switch player
+        if current_player == 'X' {
+            current_player = 'O';
+        } else {
+            current_player = 'X';
         }
 
         // check if winner exists
