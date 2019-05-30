@@ -105,18 +105,23 @@ fn print_board( _board: [[char;6];7] ) -> () {
 }
 
 fn last_empty_space(row: usize, mut _board: [[char;6];7]) -> usize {
-    let mut current_space = 0;
+    let mut current_space = 5;
     loop {
         if _board[current_space][row].to_string() != "X" && _board[current_space][row].to_string() != "O" {
             break;
         } else if current_space == 0 {
-
+            print!("top row");
+            break;
         } else {
             current_space -= 1;
         }
     }
     return current_space;
 }
+
+// fn check_if_occupied(row: usize, mut _board: [[char;6];7]) -> bool {
+//     return _board[6][row] != Char::from("");
+// }
 
 fn is_playable(row: usize, mut _board: [[char;6];7]) -> bool {
     let x = last_empty_space(row, _board);
