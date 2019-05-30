@@ -19,7 +19,7 @@ fn main() {
     assign_players();
     println!("\n");
 
-    let mut current_player = 'X';
+    let mut current_player = 'R';
 
     loop {
         /*
@@ -52,10 +52,10 @@ fn main() {
         }
 
         // switch player
-        if current_player == 'X' {
-            current_player = 'O';
+        if current_player == 'R' {
+            current_player = 'Y';
         } else {
-            current_player = 'X';
+            current_player = 'R';
         }
 
         // check if winner exists
@@ -76,7 +76,7 @@ fn assign_players() -> (String, String) {
     loop {
         let mut player_choice = String::new();
 
-        println!("Choose a color - red/yellow: ");
+        println!("Choose a color - red(R) or yellow(Y): ");
 
         io::stdin().read_line(&mut player_choice)
             .ok()
@@ -117,16 +117,15 @@ fn print_board( _board: [[char;6];7] ) -> () {
         }
         println!("|");
     }
-    println!();
+    println!("\n");
 }
 
 fn last_empty_space(row: usize, mut _board: [[char;6];7]) -> usize {
     let mut current_space = 5;
     loop {
-        if _board[current_space][row].to_string() != "X" && _board[current_space][row].to_string() != "O" {
+        if _board[current_space][row].to_string() != "R" && _board[current_space][row].to_string() != "Y" {
             break;
         } else if current_space == 0 {
-            print!("top row");
             break;
         } else {
             current_space -= 1;
@@ -135,14 +134,18 @@ fn last_empty_space(row: usize, mut _board: [[char;6];7]) -> usize {
     return current_space;
 }
 
-// fn check_if_occupied(row: usize, mut _board: [[char;6];7]) -> bool {
-//     return _board[6][row] != Char::from("");
-// }
+fn top_is_occupied(row: usize, mut _board: [[char;6];7]) -> bool {
+    return _board[6][row].to_string() == "R" || _board[6][row].to_string() == "Y";
+}
 
 fn is_playable(row: usize, mut _board: [[char;6];7]) -> bool {
+    if top_is_occupied(row, _board) {
+        println!("Move cannot be played! Please choose another space!");
+        return false;
+    }
+    println!("Making a move...");
     let x = last_empty_space(row, _board);
-    let y = row;
-    return _board[x][y].to_string() != "X" && _board[x][y].to_string() != "O";
+    return _board[x][row].to_string() != "R" && _board[x][row].to_string() != "Y";
 }
 
 fn update_board(row: usize, c: char, mut _board: [[char;6];7]) -> [[char;6];7] {
