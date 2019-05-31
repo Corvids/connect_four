@@ -93,11 +93,11 @@ fn assign_players() -> (String, String) {
 
 fn assign_colors(player_color: String) -> (String, String) {
     if player_color.trim().to_lowercase() == "yellow" {
-        println!("Player will be yellow. Computer will be red.");
+        println!("Player 1 will be yellow. Player 2 will be red.");
         return ("yellow".to_string(), "red".to_string());
     }
     else {
-        println!("Player will be red. Computer will be yellow.");
+        println!("Player 1 will be red. Player 2 will be yellow.");
         return ("red".to_string(), "yellow".to_string());
     }
 }
