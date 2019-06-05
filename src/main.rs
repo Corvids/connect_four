@@ -52,11 +52,7 @@ fn main() {
         }
 
         // switch player
-        if current_player == 'R' {
-            current_player = 'Y';
-        } else {
-            current_player = 'R';
-        }
+        current_player = switch_player(current_player);
 
         // check if winner exists
         if winner_exists() {
@@ -68,6 +64,14 @@ fn main() {
 
 fn welcome_message() {
     println!("Starting a new game!\n");
+}
+
+fn switch_player(current_player: char) -> char {
+    if current_player == 'R' {
+        return 'Y';
+    } else {
+        return 'R';
+    }
 }
 
 // assign player to a color;
