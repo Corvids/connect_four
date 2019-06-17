@@ -27,6 +27,8 @@ fn main() {
         O will be "yellow"
         */
 
+        let mut row: usize = 0;
+
         loop {
             let mut row_input = String::new();
 
@@ -41,7 +43,9 @@ fn main() {
             let row_input: usize = row_input.trim().parse()
                 .expect("Please type a number!");
 
-            let row = row_input - 1;
+            row = row_input - 1;
+
+            println!("value of row in loop: {}", row);
 
             // check if position is valid
             if is_playable(row, _board) {
@@ -54,9 +58,13 @@ fn main() {
         // switch player
         current_player = switch_player(current_player);
 
+        println!("value of row before checking vertical win case: {}", row);
+
         // check if winner exists
         if winner_exists() {
-            winning_message("No one :(");
+            if check_vertical(row, _board, current_player.to_string()) {
+                winning_message(&current_player.to_string());
+            }
             break;
         }
     }
@@ -124,6 +132,33 @@ fn print_board( _board: [[char;6];7] ) -> () {
     println!("\n");
 }
 
+fn check_vertical(row: usize, mut _board: [[char;6];7], player_color: String) -> bool {
+    let mut counter = 1;
+
+    // get the position of the player
+    let mut current_ind = last_empty_space(row, _board) - 1;
+
+    // checking it's neighbors below
+    while is_playable(row, _board) {
+        if _board[row][current_ind].to_string() == player_color {
+            counter += 1;
+        } else {
+            return false;
+        }
+        current_ind -= 1;
+    }
+
+    if counter >= 4 {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+fn check_horizontal() -> bool {
+    return false
+}
+
 fn last_empty_space(row: usize, mut _board: [[char;6];7]) -> usize {
     let mut current_space = 5;
     loop {
@@ -164,6 +199,6 @@ fn winner_exists() -> bool {
 }
 
 fn winning_message(winner_name: &str) {
-    println!("Congrats! The winner is {}", winner_name);
+    println!("Congrats! The winner is player {}", winner_name);
 }
 
